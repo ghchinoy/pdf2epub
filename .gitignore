@@ -1,0 +1,29 @@
+# Input and Output Directories
+sources/
+outputs/
+
+# Python Virtual Environment and Packages
+.venv/
+venv/
+ENV/
+env/
+
+# Python Caches and Compiled Files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+
+# macOS System Files
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+
+# Local test and configuration files
+test_vertex.py
+bin/
+go_port/outputs/
+llama_server.log
