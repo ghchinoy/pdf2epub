@@ -78,7 +78,7 @@ def run_diagnostics():
             # Kobo stores the file path in 'ContentID' as a URI, e.g., 'file:///mnt/onboard/filename.epub'
             query_path = f"%{filename}"
             cursor.execute(
-                "SELECT ContentID, Title, Attribution, MimeType, ___BookTitle FROM content WHERE ContentID LIKE ?", 
+                "SELECT ContentID, Title, Attribution, MimeType FROM content WHERE ContentID LIKE ?", 
                 (query_path,)
             )
             records = cursor.fetchall()
@@ -90,7 +90,7 @@ def run_diagnostics():
             else:
                 print(f"  ✅ {filename:<40} | INDEXED SUCCESSFULLY")
                 for r in records:
-                    content_id, title, author, mime, book_title = r
+                    content_id, title, author, mime = r
                     # Check if there are null values which indicate parser corruption
                     if not title:
                         print("     ⚠️ WARNING: Title field is null. Kobo failed to parse book metadata.")
