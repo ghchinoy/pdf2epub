@@ -372,8 +372,9 @@ func main() {
 		promptVertex := `You are an expert high-fidelity document transcriber. Your task is to transcribe the provided PDF page into clean, standard Markdown with LaTeX equations for mathematical expressions.
 1. READING ORDER: If double-column, read left column first, then right column.
 2. MATHEMATICS: Convert mathematical formulas to LaTeX ($math$ or $$block$$).
-3. NO ARTIFACTS: Omit running headers and footers.
-4. Output ONLY transcribed Markdown itself. Do not wrap in ` + "```" + `markdown code blocks.`
+3. HEADINGS: Identify major sections (e.g. "1. Introduction", "References") and format them strictly with Level 1 Markdown header tags (#). This allows Pandoc to split chapters logically, ensuring fast page loading and high DOM performance on E-Ink readers.
+4. FOOTNOTES: Convert all page footnotes into standard Markdown footnote syntax. Use [^1] for inline references, and define them at the bottom of the page content as [^1]: Footnote text. Symmetrically, omit any running headers, footers, or page numbers.
+5. Output ONLY transcribed Markdown itself. Do not wrap in ` + "```" + `markdown code blocks.`
 
 		// We will launch concurrent workers using Goroutines to fetch all pages in parallel!
 		fmt.Printf("\nProcessing %d page(s) in parallel via Goroutines...\n", totalPages)
@@ -429,9 +430,9 @@ func main() {
 
 INSTRUCTIONS:
 1. Re-arrange column blocks so that text flows in correct, logical reading order (read left column completely first, then right column).
-2. Format headings, sub-headings, and lists with Markdown tags (e.g., #, ##, ###, *, -).
+2. Format major headings (like "1. Introduction", "References") strictly with Level 1 Markdown header tags (#). This ensures logical chapter splits and fast page loads on E-Ink.
 3. Convert inline or block math and variables to proper LaTeX style ($inline$ or $$block$$).
-4. Remove running headers, running footers, and page numbers.
+4. Convert all page footnotes into standard Markdown footnote syntax. Use [^1] for inline references, and define them at the bottom of the page content as [^1]: Footnote text. Symmetrically, remove running headers, running footers, and page numbers.
 5. Output ONLY the resulting Markdown. Do not add introductions or comments like "Here is your reformatted text".
 
 RAW SCRAMBLED TEXT:
